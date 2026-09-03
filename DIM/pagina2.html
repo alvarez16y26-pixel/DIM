@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FC Barcelona — Información</title>
+        <link rel="stylesheet" href="style.css?v=1.0">
+        <meta name="robots" content="noindex">
+</head>
+<body>
+    <main class="container">
+                <header>
+                        <h1 style="text-align:center;">FC Barcelona y todo lo que debes de saber de ellos</h1>
+                </header>
+
+                <!-- Cinemática: muestra una imagen por cada sección -->
+                <section class="cinematica" aria-label="Cinemática">
+                    <div class="cinema-frame">
+                        <img id="cinema-img" src="" alt="Imagen cinemática" />
+                        <div class="cinema-overlay">
+                            <div id="cinema-caption"></div>
+                            <div class="cinema-progress"><span id="cinema-bar"></span></div>
+                        </div>
+                    </div>
+
+                    <!-- Panel de asignación eliminado por petición del usuario -->
+                </section>
+
+        <section class="accordion">
+            <!-- Lista de secciones: historia, palmares, plantilla, mejor11, mejor tecnico, estadisticas -->
+            <details id="historia">
+                <summary>Historia</summary>
+                <div class="display" id="display-historia"></div>
+                <textarea id="input-historia" placeholder="Escribe la historia aquí..."></textarea>
+                <div class="controls">
+                    <button class="save-btn" data-key="historia">Guardar</button>
+                    <button class="reset-btn" data-key="historia">Restablecer</button>
+                </div>
+            </details>
+
+            <details id="palmares">
+                <summary>Palmarés</summary>
+                <div class="display" id="display-palmares"></div>
+                <textarea id="input-palmares" placeholder="Lista de títulos, temporadas, etc."></textarea>
+                <div class="controls">
+                    <button class="save-btn" data-key="palmares">Guardar</button>
+                    <button class="reset-btn" data-key="palmares">Restablecer</button>
+                </div>
+            </details>
+
+            <details id="plantilla">
+                <summary>Plantilla actual</summary>
+                <div class="display" id="display-plantilla"></div>
+                <textarea id="input-plantilla" placeholder="Nombres, dorsal, posición..."></textarea>
+                <div class="controls">
+                    <button class="save-btn" data-key="plantilla">Guardar</button>
+                    <button class="reset-btn" data-key="plantilla">Restablecer</button>
+                </div>
+            </details>
+
+            <details id="mejor11">
+                <summary>Mejor 11</summary>
+                <div class="display" id="display-mejor11"></div>
+                <textarea id="input-mejor11" placeholder="Tu mejor 11 histórico..."></textarea>
+                <div class="controls">
+                    <button class="save-btn" data-key="mejor11">Guardar</button>
+                    <button class="reset-btn" data-key="mejor11">Restablecer</button>
+                </div>
+            </details>
+
+            <details id="estadisticas">
+                <summary>Estadísticas de esta temporada</summary>
+                <div class="display" id="display-estadisticas"></div>
+                <textarea id="input-estadisticas" placeholder="Estadísticas históricas, récords, etc."></textarea>
+                <div class="controls">
+                    <button class="save-btn" data-key="estadisticas">Guardar</button>
+                    <button class="reset-btn" data-key="estadisticas">Restablecer</button>
+                </div>
+            </details>
+
+            <details id="contactanos">
+                <summary>Contáctanos</summary>
+                <div class="display">
+                    <p><strong>Nombre:</strong> Emmanuel Alvarez Villada</p>
+                    <p><strong>Colegio:</strong> Arenys de Mar</p>
+                    <p><strong>Grado:</strong> 10</p>
+                    <a class="btn btn-siguiente" href="contactanos.html">Ver página de contacto</a>
+                </div>
+            </details>
+
+            <details id="registrate">
+                <summary>Regístrate</summary>
+                <div class="display">
+                    <p>Regístrate con tu nombre, apellido, Gmail, teléfono, fecha de nacimiento y edad.</p>
+                    <a class="btn btn-siguiente" href="registrate.html">Abrir registro</a>
+                </div>
+            </details>
+
+        </section>
+    </main>
+    <div class="boton-centro">
+        <a class="btn btn-siguiente" href="index.html">Volver</a>
+        <a class="btn btn-siguiente" href="contactanos.html">Contáctanos</a>
+        <a class="btn btn-siguiente" href="registrate.html">Regístrate</a>
+    </div>
+
+    <script>
+        (function(){
+            const sections = ['historia','palmares','plantilla','mejor11','estadisticas'];
+
+            // --- Persistir textos por sección (ya existente) ---
+            sections.forEach(key => {
+                const display = document.getElementById('display-'+key);
+                const input = document.getElementById('input-'+key);
+                const saveBtn = document.querySelector('.save-btn[data-key="'+key+'"]');
+                const resetBtn = document.querySelector('.reset-btn[data-key="'+key+'"]');
+                const saved = localStorage.getItem('fc_'+key);
+                if(saved && display && input){ display.textContent = saved; input.value = saved; }
+                if(saveBtn){ saveBtn.addEventListener('click', function(){ const v = input.value || ''; localStorage.setItem('fc_'+key, v); if(display) display.textContent = v; saveBtn.textContent = 'Guardado'; setTimeout(()=> saveBtn.textContent = 'Guardar',900); }); }
+                if(resetBtn){ resetBtn.addEventListener('click', function(){ localStorage.removeItem('fc_'+key); if(input) input.value=''; if(display) display.textContent=''; }); }
+            });
+
+            // --- Cinemática: imágenes por sección ---
+            const imgStoragePrefix = 'fc_img_';
+            // Default mapping: assign historia and palmares to images if not set
+            if(!localStorage.getItem(imgStoragePrefix + 'historia')){
+                localStorage.setItem(imgStoragePrefix + 'historia', 'imagenes/barca.jpg');
+            }
+            if(!localStorage.getItem(imgStoragePrefix + 'palmares')){
+                localStorage.setItem(imgStoragePrefix + 'palmares', 'imagenes/3.jpg');
+            }
+            if(!localStorage.getItem(imgStoragePrefix + 'plantilla')){
+                localStorage.setItem(imgStoragePrefix + 'plantilla', 'imagenes/4.webp');
+            }
+            if(!localStorage.getItem(imgStoragePrefix + 'mejor11')){
+                localStorage.setItem(imgStoragePrefix + 'mejor11', 'imagenes/11mej.jpg');
+            }
+            if(!localStorage.getItem(imgStoragePrefix + 'estadisticas')){
+                localStorage.setItem(imgStoragePrefix + 'estadisticas', 'imagenes/esta.jpg');
+            }
+
+            // Build images list from storage (order = sections)
+            function buildCinemaList(){
+                const list = [];
+                sections.forEach(key => {
+                    const p = localStorage.getItem(imgStoragePrefix + key);
+                    list.push({ key, src: p || '' });
+                });
+                return list;
+            }
+
+            let cinemaList = buildCinemaList();
+            let currentIndex = 0;
+
+            const cinemaImg = document.getElementById('cinema-img');
+            const cinemaCaption = document.getElementById('cinema-caption');
+
+            function showAt(i){
+                if(!cinemaList.length) return;
+                currentIndex = (i + cinemaList.length) % cinemaList.length;
+                const item = cinemaList[currentIndex];
+                if(item.src){
+                    cinemaImg.src = item.src;
+                    cinemaImg.style.display = '';
+                    cinemaCaption.textContent = item.key;
+                } else {
+                    cinemaImg.src = '';
+                    cinemaImg.style.display = 'none';
+                    cinemaCaption.textContent = item.key + ' (sin imagen)';
+                }
+                updateProgress();
+            }
+
+            function updateProgress(){
+                const bar = document.getElementById('cinema-bar');
+                if(!bar) return;
+                const pct = ((currentIndex + 1) / Math.max(1, cinemaList.length)) * 100;
+                bar.style.width = pct + '%';
+            }
+
+            // (panel de asignación eliminado)
+
+            // inicializar
+            cinemaList = buildCinemaList();
+            showAt(0);
+            setInterval(() => { showAt(currentIndex + 1); }, 3000);
+
+            // Redirigir: si el usuario hace click en la ventanilla 'Historia', abrir historia.html
+            const historiaSummary = document.querySelector('#historia > summary');
+            if(historiaSummary){
+                historiaSummary.addEventListener('click', function(e){
+                    e.preventDefault();
+                    window.location.href = 'historia.html';
+                });
+            }
+
+            const palmaresSummary = document.querySelector('#palmares > summary');
+            if(palmaresSummary){
+                palmaresSummary.addEventListener('click', function(e){
+                    e.preventDefault();
+                    window.location.href = 'palmares.html';
+                });
+            }
+
+            const plantillaSummary = document.querySelector('#plantilla > summary');
+            if(plantillaSummary){
+                plantillaSummary.addEventListener('click', function(e){
+                    e.preventDefault();
+                    window.location.href = 'plantillaactual.html';
+                });
+            }
+
+            const mejor11Summary = document.querySelector('#mejor11 > summary');
+            if(mejor11Summary){
+                mejor11Summary.addEventListener('click', function(e){
+                    e.preventDefault();
+                    window.location.href = 'imagenes/mejor11.html';
+                });
+            }
+
+            const estadisticasSummary = document.querySelector('#estadisticas > summary');
+            if(estadisticasSummary){
+                estadisticasSummary.addEventListener('click', function(e){
+                    e.preventDefault();
+                    window.location.href = 'imagenes/estadisticas.html';
+                });
+            }
+
+        })();
+    </script>
+</body>
+</html>

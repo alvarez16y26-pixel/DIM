@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=initial-scale=1.0">
+<title>Document</title>
+<link rel="stylesheet" href="style.css ?v=1.0"> 
+</head> 
+<body> 
+<center> 
+<div class="textoa">Wiki-Cule</div> 
+</center>
+<center> 
+<div class="textob">Bienvenido a Wiki-Cule donde veras todo sobre el FC Barcelona</div>
+</center> 
+<div class="contenedor-imagen posicion-centro"> 
+<img src="./imagenes/barca2.jpg" alt="imagen escudo del FC barcelona" class="imagen-decorada" > </div>
+<br> 
+<center> 
+<div class="textoc"> El FC Barcelana, uno de los clubes mas grandes de toda la historia del futbol, a contado con los mejores de todo el mundo y ademas tiene una historia tras de el facinante , depende hoy de ti descubrir mas sobre este hermoso club en nustra pagina web</div> 
+</center> 
+<a class="btn btn-da
+href="pagina2.html" >Siguiente</button>
+
+</body>
+</html>

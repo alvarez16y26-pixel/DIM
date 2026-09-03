@@ -1,0 +1,54 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=initial-scale=1.0">
+<title>Document</title>
+<link rel="stylesheet" href="style.css?v=1.0"> 
+</head> 
+<body class="inicio-page">
+<center> 
+<div class="textoa">Wiki-Cule</div> 
+<p class="inicio-bienvenida" id="inicio-bienvenida" hidden></p>
+</center>
+<center> 
+<div class="textob">Bienvenido a Wiki-Cule donde veras todo sobre el FC Barcelona</div>
+</center> 
+<div class="contenedor-imagen posicion-centro"> 
+<img src="./imagenes/barca2.jpg" alt="imagen escudo del FC barcelona" class="imagen-decorada" > </div>
+<br> 
+<center> 
+<div class="textoc"> El FC Barcelona, uno de los clubes mas grandes de toda la historia del futbol, a contado con los mejores de todo el mundo y ademas tiene una historia tras de el facinante , depende hoy de ti descubrir mas sobre este hermoso club en nustra pagina web</div> 
+</center> 
+<div class="boton-centro">
+	<a class="btn btn-siguiente" href="pagina2.html">Siguiente</a>
+  <a class="btn btn-siguiente" href="contactanos.html">Contáctanos</a>
+  <a class="btn btn-siguiente" href="registrate.html">Regístrate</a>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const nombre = localStorage.getItem('wikiCuleNombre');
+    const bienvenida = document.getElementById('inicio-bienvenida');
+    if (nombre && bienvenida) {
+      bienvenida.textContent = 'Bienvenido, ' + nombre;
+      bienvenida.hidden = false;
+    }
+
+    function goTo(url) {
+      window.location.href = url;
+    }
+
+    document.querySelectorAll('a[href]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        const href = this.getAttribute('href');
+        if (!href || href.startsWith('#') || this.target === '_blank') return;
+        event.preventDefault();
+        goTo(href);
+      });
+    });
+
+  });
+</script>
+<script src="lightbox.js"></script>
+</body>
+</html>
